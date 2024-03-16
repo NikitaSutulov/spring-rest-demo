@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring-rest-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restdemo
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # change to 'update' after first launch to save the data
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  error:
+    include-message: always
