@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// DTO для запитів на редагування/створення користувача
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

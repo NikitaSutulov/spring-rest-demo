@@ -13,82 +13,97 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+// Контролер запитів на шлях /users
+// Більше про контролери в Spring Boot: https://www.baeldung.com/spring-controller-vs-restcontroller
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    // Залежність - сервіс
     private final UserService userService;
 
+    // Конструктор для ін'єкції залежності userService
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     // CREATE
+
+    // Створити користувача
     @PostMapping("")
     public ResponseEntity<ForumUser> createUser(@RequestBody UserRequest request) {
         try {
             ForumUser createdUser = userService.createForumUser(request.getFirstName(), request.getLastName(), request.getEmail());
-            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED); // якщо все добре, повернути користувача і код 201
         } catch (EmailAlreadyTakenException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()); // якщо email вже зайнято, повернути код 400
         }
     }
 
     // READ
+
+    // Отримати всіх користувачів
     @GetMapping("")
     public ResponseEntity<List<ForumUser>> getAll() {
         return new ResponseEntity<>(userService.getForumUsers(), HttpStatus.OK);
     }
 
+    // Отримати користувача за ID
     @GetMapping("/{id}")
     public ResponseEntity<ForumUser> getUserById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(userService.getForumUserById(id), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getForumUserById(id), HttpStatus.OK); // якщо все добре, повернути користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким ID не знайдено, повернути код 404
         }
     }
 
+    // Отримати користувача за ID
     @GetMapping("/email")
     public ResponseEntity<ForumUser> getUserByEmail(@RequestParam String email) {
         try {
-            return new ResponseEntity<>(userService.getForumUserByEmail(email), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getForumUserByEmail(email), HttpStatus.OK); // якщо все добре, повернути користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким email не знайдено, повернути код 404
         }
     }
 
     // UPDATE
+
+    // Оновити дані користувача
     @PutMapping("/{id}")
     public ResponseEntity<ForumUser> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
         try {
             ForumUser updatedUser = userService.updateForumUser(id, request.getFirstName(), request.getLastName(), request.getEmail());
-            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK); // якщо все добре, повернути нові дані користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким ID не знайдено, повернути код 404
         } catch (EmailAlreadyTakenException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()); // якщо новий email вже зайнято, повернути код 400
         }
     }
 
     // DELETE
+
+    // Видалити користувача за ID
     @DeleteMapping("/{id}")
     public ResponseEntity<ForumUser> deleteUserById(@PathVariable Long id) {
         try {
             ForumUser deletedUser = userService.deleteForumUserById(id);
-            return new ResponseEntity<>(deletedUser, HttpStatus.OK);
+            return new ResponseEntity<>(deletedUser, HttpStatus.OK); // якщо все добре, повернути нові дані користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким ID не знайдено, повернути код 404
         }
     }
 
+    // Видалити користувача за email
     @DeleteMapping("/email")
     public ResponseEntity<ForumUser> deleteUserByEmail(@RequestParam String email) {
         try {
             ForumUser deletedUser = userService.deleteForumUserByEmail(email);
-            return new ResponseEntity<>(deletedUser, HttpStatus.OK);
+            return new ResponseEntity<>(deletedUser, HttpStatus.OK); // якщо все добре, повернути нові дані користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким ID не знайдено, повернути код 404
         }
     }
 }

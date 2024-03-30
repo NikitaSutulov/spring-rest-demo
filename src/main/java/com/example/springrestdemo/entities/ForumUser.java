@@ -3,16 +3,18 @@ package com.example.springrestdemo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "forum_user")
+// Клас-сутність для користувача
+// Більше про створення сутностей в Spring Data JPA: https://www.baeldung.com/jpa-entities
+@Entity(name = "forum_user") // анотація для позначення сутності з можливістю вказання імені для сутності та таблиці
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ForumUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id // анотація для первинного ключа (ідентифікатора)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // генерація нових значень через SEQUENCE
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false) // анотація для атрибута (можна вказати свою назву, параметри nullable та unque)
     private String firstName;
 
     @Column(name = "last_name")
