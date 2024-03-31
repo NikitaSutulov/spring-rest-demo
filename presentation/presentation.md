@@ -30,7 +30,7 @@ theme: default
 - Репозиторії
 - Представлення (за потреби)
 
-![bg right width:500px](assets/layers.png)
+![bg right width:500px](https://raw.githubusercontent.com/NikitaSutulov/spring-rest-demo/master/presentation/assets/layers.png)
 
 ---
 
