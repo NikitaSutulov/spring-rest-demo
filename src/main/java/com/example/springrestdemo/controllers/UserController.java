@@ -30,7 +30,7 @@ public class UserController {
     // CREATE
 
     // Створити користувача
-    @PostMapping("")
+    @PostMapping("") // POST /users
     public ResponseEntity<ForumUser> createUser(@RequestBody UserRequest request) {
         try {
             ForumUser createdUser = userService.createForumUser(request.getFirstName(), request.getLastName(), request.getEmail());
@@ -43,13 +43,13 @@ public class UserController {
     // READ
 
     // Отримати всіх користувачів
-    @GetMapping("")
+    @GetMapping("") // GET /users
     public ResponseEntity<List<ForumUser>> getAll() {
         return new ResponseEntity<>(userService.getForumUsers(), HttpStatus.OK);
     }
 
     // Отримати користувача за ID
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // Наприклад, GET /users/1
     public ResponseEntity<ForumUser> getUserById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(userService.getForumUserById(id), HttpStatus.OK); // якщо все добре, повернути користувача та код 200
@@ -59,7 +59,7 @@ public class UserController {
     }
 
     // Отримати користувача за ID
-    @GetMapping("/email")
+    @GetMapping("/email") // Наприклад, GET /users/email?email=nikita@gmail.com
     public ResponseEntity<ForumUser> getUserByEmail(@RequestParam String email) {
         try {
             return new ResponseEntity<>(userService.getForumUserByEmail(email), HttpStatus.OK); // якщо все добре, повернути користувача та код 200
@@ -71,7 +71,7 @@ public class UserController {
     // UPDATE
 
     // Оновити дані користувача
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Наприклад, PUT /users/1
     public ResponseEntity<ForumUser> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
         try {
             ForumUser updatedUser = userService.updateForumUser(id, request.getFirstName(), request.getLastName(), request.getEmail());
@@ -86,7 +86,7 @@ public class UserController {
     // DELETE
 
     // Видалити користувача за ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // Наприклад, DELETE /users/1
     public ResponseEntity<ForumUser> deleteUserById(@PathVariable Long id) {
         try {
             ForumUser deletedUser = userService.deleteForumUserById(id);
@@ -97,7 +97,7 @@ public class UserController {
     }
 
     // Видалити користувача за email
-    @DeleteMapping("/email")
+    @DeleteMapping("/email") // Наприклад, DELETE users/email?email=nikita@gmail.com
     public ResponseEntity<ForumUser> deleteUserByEmail(@RequestParam String email) {
         try {
             ForumUser deletedUser = userService.deleteForumUserByEmail(email);
