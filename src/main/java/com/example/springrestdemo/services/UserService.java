@@ -95,7 +95,7 @@ public class UserService {
         return forumUser; // видалення та повернення видаленого користувача
     }
 
-    // Видалити користувача за ID
+    // Видалити користувача за Email
     @Transactional
     public ForumUser deleteForumUserByEmail(String email) {
         Optional<ForumUser> forumUserOptional = userRepository.findByEmail(email);

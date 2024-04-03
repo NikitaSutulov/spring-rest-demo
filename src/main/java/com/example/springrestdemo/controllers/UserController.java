@@ -103,7 +103,7 @@ public class UserController {
             ForumUser deletedUser = userService.deleteForumUserByEmail(email);
             return new ResponseEntity<>(deletedUser, HttpStatus.OK); // якщо все добре, повернути нові дані користувача та код 200
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким ID не знайдено, повернути код 404
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()); // якщо користувача з таким Email не знайдено, повернути код 404
         }
     }
 }

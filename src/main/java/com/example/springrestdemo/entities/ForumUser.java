@@ -14,7 +14,7 @@ public class ForumUser {
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // генерація нових значень через SEQUENCE
     private Long id;
 
-    @Column(name = "first_name", nullable = false) // анотація для атрибута (можна вказати свою назву, параметри nullable та unque)
+    @Column(name = "first_name", nullable = false) // анотація для атрибута (можна вказати свою назву, параметри nullable та unique)
     private String firstName;
 
     @Column(name = "last_name")
